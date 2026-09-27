@@ -1,0 +1,102 @@
+:root {
+  --bg-primary: #FFF9F5;
+  --bg-card: #FFFFFF;
+  --bg-secondary: #FFF2EC;
+  --bg-tertiary: #FFEBE3;
+  --text-main: #4A3832;
+  --text-muted: #8C776F;
+  --text-light: #BFAEA8;
+  --primary-peach: #F4A58A;
+  --primary-peach-hover: #E8957A;
+  --dusty-rose: #D98C8C;
+  --soft-pink: #E9A6B2;
+  --warm-border: #F3E5DE;
+  --card-shadow: 0 4px 20px -2px rgba(74, 56, 50, 0.06), 0 2px 8px -1px rgba(74, 56, 50, 0.03);
+  --elevated-shadow: 0 14px 34px -4px rgba(244, 165, 138, 0.22), 0 4px 12px rgba(74, 56, 50, 0.05);
+  --modal-overlay: rgba(74, 56, 50, 0.4);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-full: 9999px;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* App container - mobile-first, centered on desktop */
+#root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background-color: #F8F1EC;
+}
+
+.glowup-mobile-frame {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 0 50px rgba(74, 56, 50, 0.08);
+}
+
+@media (min-width: 768px) {
+  .glowup-mobile-frame {
+    margin: 20px auto;
+    min-height: calc(100vh - 40px);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--warm-border);
+    overflow: hidden;
+  }
+}
+
+/* Buttons and interactive elements */
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Utility Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 165, 138, 0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(244, 165, 138, 0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
