@@ -1,6 +1,7 @@
 import React from 'react';
 import { CameraIcon, SparklesIcon, LipsIcon } from '../components/Icons';
 import { LIPSTICK_SHADES } from '../utils/shades';
+import { track } from '@vercel/analytics';
 
 export default function HomeScreen({ onStartTry, onSelectShade, onGetSuggestion, photo }) {
   const popularShades = LIPSTICK_SHADES.slice(0, 5);
@@ -65,6 +66,13 @@ export default function HomeScreen({ onStartTry, onSelectShade, onGetSuggestion,
                   title={shade.name}
                   onClick={() => {
                     onSelectShade(shade);
+                    track('lipstick_selected', {
+                      shade: shade.id,
+                      shadeName: shade.name,
+                      finish: 'satin',
+                      intensity: 50,
+                      source: 'home_quick_swatch'
+                    });
                     onStartTry();
                   }}
                   aria-label={`Try ${shade.name}`}

@@ -13,6 +13,7 @@ import { LIPSTICK_SHADES } from './utils/shades';
 import { EYELINER_COLORS } from './utils/eyelinerRenderer';
 import { CONTOUR_SHADES } from './utils/contourData';
 import { BLUSH_SHADES } from './utils/blushData';
+import { track } from '@vercel/analytics';
 import './App.css';
 
 export default function App() {
@@ -74,10 +75,12 @@ export default function App() {
   });
 
   const handleStartTry = () => {
+    track('try_makeup', { source: 'home' });
     setActiveTab('try');
   };
 
   const handleStartSuggestion = () => {
+    track('ai_suggestion', { source: 'home' });
     setActiveTab('suggest');
   };
 
@@ -86,6 +89,7 @@ export default function App() {
     if (photoData) {
       setPhoto(photoData);
     }
+    track('try_makeup', { source: 'suggestion' });
     setActiveTab('try');
   };
 
@@ -131,6 +135,7 @@ export default function App() {
     setIntensity(look.intensity || 50);
     if (look.lighting) setSelectedLighting(look.lighting.toLowerCase());
     if (look.thumbnail) setPhoto(look.thumbnail);
+    track('try_makeup', { source: 'history' });
     setActiveTab('try');
   };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { HomeIcon, HistoryIcon, LipsIcon, UserIcon } from './Icons';
+import { track } from '@vercel/analytics';
 
 export default function BottomNav({ activeTab, setActiveTab }) {
   const tabs = [
@@ -22,7 +23,12 @@ export default function BottomNav({ activeTab, setActiveTab }) {
                 key={tab.id}
                 type="button"
                 className={`nav-item primary-try-btn ${isActive ? 'active' : ''}`}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => {
+                  if (activeTab !== tab.id) {
+                    track('try_makeup', { source: 'bottom_nav' });
+                  }
+                  setActiveTab(tab.id);
+                }}
                 aria-label="Try Lipstick Makeup"
                 aria-current={isActive ? 'page' : undefined}
               >

@@ -12,6 +12,7 @@ import { CONTOUR_SHADES } from '../utils/contourData';
 import { BLUSH_SHADES, BLUSH_CATEGORIES } from '../utils/blushData';
 import CameraCapture from '../components/CameraCapture';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
+import { track } from '@vercel/analytics';
 
 export default function TryOnStudioScreen({
   photo,
@@ -302,6 +303,15 @@ export default function TryOnStudioScreen({
 
   // Share look via Web Share API (with image file when supported)
   const handleShare = async () => {
+    track('share_look', {
+      title: currentLookTitle,
+      shade: selectedShade?.id,
+      shadeName: selectedShade?.name,
+      eyeliner: eyelinerStyle,
+      contour: isContourActive ? selectedContour?.id : null,
+      blush: isBlushActive ? selectedBlush?.id : null
+    });
+
     const finalPhotoData = getRenderedPhotoData();
     // Save to history first
     onSaveLook(finalPhotoData);
@@ -337,6 +347,7 @@ export default function TryOnStudioScreen({
 
   // Reset all makeup layers back to defaults (photo stays loaded)
   const handleReset = () => {
+    track('reset_makeup');
     const defaultShade = LIPSTICK_SHADES.find((s) => s.id === 'rose-nude') || LIPSTICK_SHADES[0];
     setSelectedShade(defaultShade);
     setIntensity(50);
@@ -722,7 +733,15 @@ export default function TryOnStudioScreen({
                   key={shade.id}
                   type="button"
                   className={`shade-swatch-item ${isSelected ? 'selected' : ''}`}
-                  onClick={() => setSelectedShade(shade)}
+                  onClick={() => {
+                    setSelectedShade(shade);
+                    track('lipstick_selected', {
+                      shade: shade.id,
+                      shadeName: shade.name,
+                      finish,
+                      intensity
+                    });
+                  }}
                   aria-label={`Select ${shade.name}`}
                   aria-pressed={isSelected}
                 >
@@ -754,7 +773,18 @@ export default function TryOnStudioScreen({
             <button
               type="button"
               className={`layer-toggle-switch ${isContourActive ? 'on' : ''}`}
-              onClick={() => setIsContourActive(!isContourActive)}
+              onClick={() => {
+                const next = !isContourActive;
+                setIsContourActive(next);
+                if (next) {
+                  track('contour_selected', {
+                    shade: selectedContour?.id,
+                    shadeName: selectedContour?.name,
+                    intensity: contourIntensity,
+                    active: true
+                  });
+                }
+              }}
               aria-pressed={isContourActive}
               id="btn-toggle-contour"
             >
@@ -772,7 +802,16 @@ export default function TryOnStudioScreen({
                   key={shade.id}
                   type="button"
                   className={`shade-swatch-item ${isSel ? 'selected' : ''}`}
-                  onClick={() => { setSelectedContour(shade); setIsContourActive(true); }}
+                  onClick={() => {
+                    setSelectedContour(shade);
+                    setIsContourActive(true);
+                    track('contour_selected', {
+                      shade: shade.id,
+                      shadeName: shade.name,
+                      intensity: contourIntensity,
+                      active: true
+                    });
+                  }}
                   aria-label={`Select ${shade.name} contour`}
                   aria-pressed={isSel}
                 >
@@ -826,7 +865,19 @@ export default function TryOnStudioScreen({
             <button
               type="button"
               className={`layer-toggle-switch ${isBlushActive ? 'on' : ''}`}
-              onClick={() => setIsBlushActive(!isBlushActive)}
+              onClick={() => {
+                const next = !isBlushActive;
+                setIsBlushActive(next);
+                if (next) {
+                  track('blush_selected', {
+                    shade: selectedBlush?.id,
+                    shadeName: selectedBlush?.name,
+                    intensity: blushIntensity,
+                    finish: blushFinish,
+                    active: true
+                  });
+                }
+              }}
               aria-pressed={isBlushActive}
               id="btn-toggle-blush"
             >
@@ -879,7 +930,17 @@ export default function TryOnStudioScreen({
                     key={shade.id}
                     type="button"
                     className={`shade-swatch-item ${isSel ? 'selected' : ''}`}
-                    onClick={() => { setSelectedBlush(shade); setIsBlushActive(true); }}
+                    onClick={() => {
+                      setSelectedBlush(shade);
+                      setIsBlushActive(true);
+                      track('blush_selected', {
+                        shade: shade.id,
+                        shadeName: shade.name,
+                        intensity: blushIntensity,
+                        finish: blushFinish,
+                        active: true
+                      });
+                    }}
                     aria-label={`Select ${shade.name} blush`}
                     aria-pressed={isSel}
                   >
@@ -951,7 +1012,17 @@ export default function TryOnStudioScreen({
                 role="tab"
                 aria-selected={eyelinerStyle === st.id}
                 className={`eyeliner-style-tab ${eyelinerStyle === st.id ? 'active' : ''}`}
-                onClick={() => setEyelinerStyle(st.id)}
+                onClick={() => {
+                  setEyelinerStyle(st.id);
+                  track('eyeliner_selected', {
+                    style: st.id,
+                    styleLabel: st.label,
+                    color: eyelinerColor?.id,
+                    colorName: eyelinerColor?.name,
+                    thickness: eyelinerThickness,
+                    wing: eyelinerWing
+                  });
+                }}
               >
                 {st.label}
               </button>
@@ -968,7 +1039,16 @@ export default function TryOnStudioScreen({
                   key={col.id}
                   type="button"
                   className={`eyeliner-color-item ${isSelected ? 'selected' : ''}`}
-                  onClick={() => setEyelinerColor(col)}
+                  onClick={() => {
+                    setEyelinerColor(col);
+                    track('eyeliner_selected', {
+                      style: eyelinerStyle,
+                      color: col.id,
+                      colorName: col.name,
+                      thickness: eyelinerThickness,
+                      wing: eyelinerWing
+                    });
+                  }}
                   aria-label={`Select ${col.name} eyeliner`}
                   aria-pressed={isSelected}
                 >

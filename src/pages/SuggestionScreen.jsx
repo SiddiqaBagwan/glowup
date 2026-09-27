@@ -3,6 +3,7 @@ import { CameraIcon, UploadIcon, SparklesIcon, ArrowLeftIcon, LipsIcon } from '.
 import CameraCapture from '../components/CameraCapture';
 import { SAMPLE_SELFIE_URL, processUploadedFile } from '../utils/imageUtils';
 import { analyzePhotoForSuggestions } from '../utils/shadeRecommender';
+import { track } from '@vercel/analytics';
 
 export default function SuggestionScreen({
   photo,
@@ -59,6 +60,7 @@ export default function SuggestionScreen({
   }, [activePhoto, step]);
 
   const handleStartAnalysis = (photoData) => {
+    track('ai_suggestion', { source: 'photo_analysis' });
     setErrorMsg(null);
     setActivePhoto(photoData);
     if (onPhotoChange) {
@@ -98,6 +100,13 @@ export default function SuggestionScreen({
   };
 
   const handleTryShade = (shade) => {
+    track('lipstick_selected', {
+      shade: shade.id,
+      shadeName: shade.name,
+      finish: 'satin',
+      intensity: 50,
+      source: 'ai_suggestion'
+    });
     onSelectAndTry(shade, activePhoto);
   };
 
