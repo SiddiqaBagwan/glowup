@@ -14,6 +14,17 @@ Upload a selfie, choose your makeup, adjust the intensity, and see how the look 
 
 ---
 
+<img width="471" height="890" alt="image" src="https://github.com/user-attachments/assets/32dbc844-35c1-4f74-90c7-be65f0ea7d5f" />
+<img width="450" height="856" alt="image" src="https://github.com/user-attachments/assets/a4fb35f7-a2cb-410c-b93c-b08493bfef29" />
+<img width="343" height="861" alt="image" src="https://github.com/user-attachments/assets/75496be6-b0f5-4ea1-8b92-1761b94fe0b6" />
+<img width="412" height="696" alt="image" src="https://github.com/user-attachments/assets/573bb787-714a-4978-9092-c817e7f16af8" />
+<img width="357" height="222" alt="image" src="https://github.com/user-attachments/assets/3bfef6ae-42f6-4ab2-b039-be4776a1c689" />
+<img width="351" height="870" alt="image" src="https://github.com/user-attachments/assets/a5ec1d38-7fc8-457f-8c7b-ec49a2b522ac" />
+<img width="364" height="475" alt="image" src="https://github.com/user-attachments/assets/d8824715-d409-43d8-b3c4-6363972de970" />
+<img width="402" height="525" alt="image" src="https://github.com/user-attachments/assets/14f9f31c-6056-443b-b00c-a7a2a50a4ce5" />
+<img width="332" height="849" alt="image" src="https://github.com/user-attachments/assets/29a60b3c-a3a7-4de7-adde-6690bfe638aa" />
+
+
 ## 🌸 Why GlowUp?
 
 Choosing makeup online can be surprisingly difficult.
