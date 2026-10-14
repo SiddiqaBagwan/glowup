@@ -566,4 +566,4 @@ If you find the project interesting:
 
 This project is currently intended as a personal/project portfolio application.
 
-Add an explicit open-source license only if you decide you want others to reuse, modify, and redistribute the code.
+
